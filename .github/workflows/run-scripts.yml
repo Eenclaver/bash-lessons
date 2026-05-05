@@ -1,0 +1,23 @@
+name: Run bash scripts
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  run-scripts:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Make scripts executable
+        run: chmod +x *.sh
+
+      - name: Run all bash scripts
+        run: |
+          for script in *.sh; do
+            echo "Running $script"
+            bash "$script"
+          done
